@@ -6,8 +6,8 @@ Created on Sun May 21 14:41:31 2017
 """
 import pandas as pd
 
-#path = 'F:\\MyPython\\resource\\ctrip\\'
-path = 'E:\\cay\\resource\\'
+path = 'F:\\MyPython\\resource\\ctrip\\'
+#path = 'E:\\cay\\resource\\'
 
 path_train = path+'competition_train.txt'
 
@@ -49,5 +49,5 @@ data_hotel.dtypes
 
 data_hotel[data_hotel['basic_minarea']<0].to_csv(path+'room_train_l0.csv')
 data_hotel[data_hotel['basic_minarea'].isnull()].to_csv(path+'room_train_nan.csv')
-data_hotel[data_hotel['basic_minarea']>=0].to_csv(path+'room_train_nan_train.csv')
+data_hotel[data_hotel['basic_minarea']>=0].to_csv(path+'room_train.csv')
 
