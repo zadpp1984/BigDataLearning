@@ -7,8 +7,8 @@ Created on Sat May 27 00:27:47 2017
 
 import pandas as pd
 
-path = 'F:\\MyPython\\resource\\ctrip\\'
-#path = 'E:\\cay\\resource\\'
+#path = 'F:\\MyPython\\resource\\ctrip\\'
+path = 'E:\\cay\\resource\\'
 
 path_train = path+'competition_train.txt'
 #path_train = path+'competition_test.txt'
@@ -174,18 +174,7 @@ basicCol=[
          ]
 
 usecols = [
-        'orderlabel'
-        ,'ordertype_1_ratio'
-        ,'ordertype_2_ratio'
-        ,'ordertype_3_ratio'
-        ,'ordertype_4_ratio'
-        ,'ordertype_5_ratio'
-        ,'ordertype_6_ratio'
-        ,'ordertype_7_ratio'
-        ,'ordertype_8_ratio'
-        ,'ordertype_9_ratio'
-        ,'ordertype_10_ratio'
-        ,'ordertype_11_ratio'
+        'returnvalue'
         ]
 
 file_handler = pd.read_table(path_train,
@@ -201,9 +190,11 @@ for data_i in file_handler:
     total_train += data_i.shape[0]
     print(j,end=',')
     j+=1
-#    if total_train >= 1000000:
-#        break 
+    if total_train >= 1000000:
+        break 
 del data_i
+
+dataset2=dataset[:10000]
 
 #dataset.describe().to_csv(path+'describe.csv')
 
@@ -211,11 +202,19 @@ del data_i
 #dataset.describe(include='all')
 #dataset.head(10)
 
-import matplotlib as plt
+import numpy as np
+import matplotlib.pylab as plt
 import seaborn as sns
+#%matplotlib qt5
 
-
-plt.figure.Figure(figsize=(30,30))
-corr1 = dataset.dropna().corr()
-sns.heatmap(corr1,annot=True)
+dataset2.sort_values(by='returnvalue',axis=0,inplace=True)
+dataset2.reset_index(drop=True,inplace=True)
+dataset2['newcol'] = dataset2['returnvalue'].pow(other=0.1)
+plt.scatter(dataset2.index.values,dataset2['returnvalue'].values)
+plt.scatter(dataset2.index.values,np.log(dataset2['returnvalue'].values))
+plt.scatter(dataset2.index.values,np.log2(dataset2['returnvalue'].values))
+plt.scatter(dataset2.index.values,np.log10(dataset2['returnvalue'].values))
+#plt.figure.Figure(figsize=(30,30))
+#corr1 = dataset.dropna().corr()
+#sns.heatmap(corr1,annot=True)
 

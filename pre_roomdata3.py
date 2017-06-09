@@ -7,7 +7,7 @@ Created on Mon May 22 18:58:39 2017
 
 import pandas as pd
 import matplotlib.pyplot as plt
-%matplotlib inline
+import seaborn as sns
 
 #path = 'F:\\MyPython\\resource\\ctrip\\'
 path = 'E:\\cay\\resource\\'
@@ -48,6 +48,14 @@ for x in range(len(usecols)):
 data_hotel[data_hotel.price_deduct>10000]
 
 plt.figure(22,figsize=(20,6))
-plt.plot(data_hotel.index,data_hotel['star'].values)
+plt.plot(data_hotel.index.values,data_hotel['star'].values)
+plt.scatter(data_hotel['basic_minarea'].values,data_hotel['price_deduct'].values)
 
-data_hotel.describe()
+plt.hist(data_hotel['basic_minarea'].values)
+
+
+sns.distplot(data_hotel['basic_minarea'].values)
+sns.plt.show()
+
+data_hotel[data_hotel['basic_minarea']>2000]
+data_hotel[data_hotel['basic_minarea']>2000].describe()
