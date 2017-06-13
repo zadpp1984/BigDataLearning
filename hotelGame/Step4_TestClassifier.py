@@ -37,7 +37,7 @@ def read_data(file):
     return dataset
 
 bst = xgb.Booster() #init model
-bst.load_model("xgboost.model") # load data
+bst.load_model("xgboost3.model") # load data
 dataset2 = read_data('preprocessed_test.csv').values
 xg_test = xgb.DMatrix(dataset2)
 predict_test = bst.predict(xg_test) 

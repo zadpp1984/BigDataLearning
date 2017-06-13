@@ -1,4 +1,3 @@
-@@ -0,0 +1,237 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jun  5 14:09:03 2017
@@ -9,12 +8,12 @@ import pandas as pd
 import numpy as np
 import DataPrepare as DP
 
-path = 'F:\\MyPython\\resource\\ctrip\\'
-#path = 'E:\\cay\\resource\\temp\\'
+#path = 'F:\\MyPython\\resource\\ctrip\\'
+path = 'E:\\cay\\resource\\temp\\'
 
 #path_train = path+'train_1.csv'
-#path_train = path+'train_1_sorted.csv'
-path_train = path+'train_total.csv'
+path_train = path+'train_total3.csv'
+#path_train = path+'train_total.csv'
 #path_test = path+'test_1.csv'
 
 
@@ -67,8 +66,8 @@ dataset1 = DP.prepareData(dataset1)
 
 dataset1.fillna(0,inplace=True)
 
-dataset1[DP.select_features1].to_csv('preprocessed_train.csv',index=False)
-dataset1[['orderlabel']].to_csv('preprocessed_train_Y.csv',index=False)
+dataset1[DP.select_features1].to_csv('preprocessed_train3.csv',index=False)
+dataset1[['orderlabel']].to_csv('preprocessed_train_Y3.csv',index=False)
 
 #trainY = dataset1['orderlabel']
 #dataset1 = dataset1[select_features]

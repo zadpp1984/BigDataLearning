@@ -117,6 +117,24 @@ select_features1 = [
 #,'room_order_num'
 #,'basicroom_order_num'
 #,'hotel_order_num'
+,'price_diff_order'
+,'price_diff_hotel'
+,'price_diff_basicroom'
+,'ordertype_1_ratio'
+#,'ordertype_2_ratio'
+#,'ordertype_3_ratio'
+#,'ordertype_4_ratio'
+,'ordertype_5_ratio'
+,'ordertype_6_ratio'
+,'ordertype_7_ratio'
+,'ordertype_8_ratio'
+,'ordertype_9_ratio'
+,'ordertype_10_ratio'
+,'ordertype_11_ratio'
+#,'orderbehavior_6_ratio'
+#,'orderbehavior_7_ratio'
+#,'orderbehavior_8'
+#,'orderbehavior_9'
 ,0
 ,1
 ,2
@@ -266,6 +284,24 @@ select_features2 = [
 #,'room_order_num'
 #,'basicroom_order_num'
 #,'hotel_order_num'
+,'price_diff_order'
+,'price_diff_hotel'
+,'price_diff_basicroom'
+,'ordertype_1_ratio'
+#,'ordertype_2_ratio'
+#,'ordertype_3_ratio'
+#,'ordertype_4_ratio'
+,'ordertype_5_ratio'
+,'ordertype_6_ratio'
+,'ordertype_7_ratio'
+,'ordertype_8_ratio'
+,'ordertype_9_ratio'
+,'ordertype_10_ratio'
+,'ordertype_11_ratio'
+#,'orderbehavior_6_ratio'
+#,'orderbehavior_7_ratio'
+#,'orderbehavior_8'
+#,'orderbehavior_9'
 ,'0'
 ,'1'
 ,'2'
@@ -321,6 +357,25 @@ def prepareData(dataset1):
     dataset1.ix[dataset1['basic_minarea']<=0,'basic_minarea'] = np.nan
     dataset1.ix[dataset1['basic_maxarea']<=0,'basic_maxarea'] = np.nan
     
+    df1 = dataset1[['orderid','price_deduct']].groupby('orderid').min().reset_index()
+    df1.columns = ['orderid','ordermin']
+    df1 = pd.merge(dataset1[['orderid','price_deduct','orderlabel']],df1,on=['orderid'],how='left',suffixes=['','_y'])
+    dataset1['price_diff_order'] = df1['price_deduct']-df1['ordermin']
+    del df1
+    
+    df2 = dataset1[['orderid','hotelid','price_deduct']].groupby(['orderid','hotelid']).min().reset_index()
+    df2.columns = ['orderid','hotelid','hotelmin']
+    df2 = pd.merge(dataset1[['orderid','hotelid','price_deduct','orderlabel']],df2,on=['orderid','hotelid'],how='left',suffixes=['','_y'])
+    dataset1['price_diff_hotel'] = df2['price_deduct']-df2['hotelmin']
+    del df2
+    
+    
+    df3 = dataset1[['orderid','basicroomid','price_deduct']].groupby(['orderid','basicroomid']).min().reset_index()
+    df3.columns = ['orderid','basicroomid','basicroommin']
+    df3 = pd.merge(dataset1[['orderid','basicroomid','price_deduct','orderlabel']],df3,on=['orderid','basicroomid'],how='left',suffixes=['','_y'])
+    dataset1['price_diff_basicroom'] = df3['price_deduct']-df3['basicroommin']
+    del df3
+    
     #fillna(0)
     zero_dict = {
              'roomservice_1':0
@@ -336,6 +391,12 @@ def prepareData(dataset1):
             ,'user_roomservice_6_0ratio':0
             ,'user_roomservice_2_1ratio':0
             ,'user_roomservice_5_345ratio':0
+            
+            
+            ,'ordertype_2_ratio':0
+            ,'ordertype_3_ratio':0
+            ,'ordertype_4_ratio':0
+            ,'ordertype_5_ratio':0
             }
     dataset1.fillna(zero_dict,inplace=True)
     #fillna(mean)

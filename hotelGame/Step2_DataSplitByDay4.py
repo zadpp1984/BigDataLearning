@@ -1,4 +1,3 @@
-@@ -0,0 +1,136 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sat Jun 10 11:20:35 2017
@@ -7,22 +6,22 @@ Created on Sat Jun 10 11:20:35 2017
 """
 import numpy as np
 
-path = 'F:\\MyPython\\resource\\ctrip\\'
-#path = 'E:\\cay\\resource\\'
+#path = 'F:\\MyPython\\resource\\ctrip\\'
+path = 'E:\\cay\\resource\\temp\\'
 
 #path_train = path+'competition_train.txt'
 path_train = path+'train_1_sorted.csv'
 
 path_train_list = [
 #        path+'train_1_sorted.csv'
-       path+'train_2_sorted.csv'
+        path+'train_2_sorted.csv'
        ,path+'train_3_sorted.csv'
        ,path+'train_4_sorted.csv'
        ,path+'train_5_sorted.csv'
         ]
 
 
-path_out = path+'train_total.csv';
+path_out = path+'train_total3.csv';
 #path_train = path+'competition_test.txt'
 #path_out = path+'temp\\test_';
 
@@ -89,7 +88,7 @@ while line:
     else:
         if num_line!=1:
             writeout(sameorders,zeronum,r_l)
-            sameorders.clear()
+            sameorders = []
             r_l=''
         order_index = 1
     line += addindex()
@@ -117,7 +116,7 @@ for p in path_train_list:
             order_index += 1
         else:
             writeout(sameorders,zeronum,r_l)
-            sameorders.clear()
+            sameorders=[]
             r_l=''
             order_index = 1
         line += addindex()

@@ -31,10 +31,11 @@ def read_data(file):
 
 
 
-Y1 = read_data('preprocessed_train_Y.csv').values.ravel()
-dataset1 = read_data('preprocessed_train.csv').values
+Y1 = read_data('preprocessed_train_Y3.csv').values.ravel()
+dataset1 = read_data('preprocessed_train3.csv').values
 xg_train = xgb.DMatrix(dataset1, label=Y1.ravel())
-num_round = 140
+#num_round = 140
+num_round = 160
 param = {'bst:max_depth':4, 'bst:eta':0.3, 'silent':1, 'objective':'binary:logistic' }
 plst = param.items()
 #plst += [('eval_metric', 'auc')] # Multiple evals can be handled in this way
@@ -43,4 +44,4 @@ plst = param.items()
 #bst = xgb.train( plst, xg_train, num_round, evallist )
 
 bst = xgb.train( plst, xg_train, num_round )
-bst.save_model('xgboost.model')
+bst.save_model('xgboost3.model')
