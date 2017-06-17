@@ -11,9 +11,7 @@ import DataPrepare as DP
 #path = 'F:\\MyPython\\resource\\ctrip\\'
 path = 'E:\\cay\\resource\\temp\\'
 
-path_train = path+'train_6.csv'
-#path_train = path+'train_total.csv'
-#path_test = path+'test_1.csv'
+path_train = path+'train_6_sorted.csv'
 
 
 def read_data(file):
@@ -42,5 +40,5 @@ dataset1 = DP.prepareData(dataset1)
 
 dataset1.fillna(0,inplace=True)
 
-dataset1[DP.select_features1].to_csv('preprocessed_test.csv',index=False)
-dataset1[['orderid','roomid','orderlabel']].to_csv('preprocessed_test_compare.csv',index=False)
+dataset1[DP.select_features1].to_csv(path+'preprocessed_test.csv',index=False)
+dataset1[['orderid','roomid','orderlabel']].to_csv(path+'preprocessed_test_compare.csv',index=False)

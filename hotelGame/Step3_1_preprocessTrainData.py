@@ -11,8 +11,11 @@ import DataPrepare as DP
 #path = 'F:\\MyPython\\resource\\ctrip\\'
 path = 'E:\\cay\\resource\\temp\\'
 
+m=10
+index=4
+
 #path_train = path+'train_1.csv'
-path_train = path+'train_total3.csv'
+path_train = path+'train_total'+str(m)+'_'+str(index)+'.csv'
 #path_train = path+'train_total.csv'
 #path_test = path+'test_1.csv'
 
@@ -48,6 +51,13 @@ dataset1 = DP.prepareData(dataset1)
 #dataset1.info(verbose=True,null_counts=True)
 
 
+#import numpy as np
+#import matplotlib.pylab as plt
+#import seaborn as sns
+#plt.figure(figsize=(30,30))
+#corr1 = dataset1[:10000].corr()
+#sns.heatmap(corr1,annot=True)
+
 """""""""""""""""""""""""""""""""""""""""""""""""""
       predict
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -66,8 +76,10 @@ dataset1 = DP.prepareData(dataset1)
 
 dataset1.fillna(0,inplace=True)
 
-dataset1[DP.select_features1].to_csv('preprocessed_train3.csv',index=False)
-dataset1[['orderlabel']].to_csv('preprocessed_train_Y3.csv',index=False)
+label1 = dataset1.loc[dataset1['orderlabel']==1]
+dataset1 = dataset1.append(label1,ignore_index=True)
+dataset1[DP.select_features1].to_csv(path+'preprocessed_train'+str(m)+'_'+str(index)+'.csv',index=False)
+dataset1[['orderlabel']].to_csv(path+'preprocessed_train_Y'+str(m)+'_'+str(index)+'.csv',index=False)
 
 #trainY = dataset1['orderlabel']
 #dataset1 = dataset1[select_features]

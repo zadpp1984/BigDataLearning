@@ -10,18 +10,23 @@ import numpy as np
 path = 'E:\\cay\\resource\\temp\\'
 
 #path_train = path+'competition_train.txt'
-path_train = path+'train_1_sorted.csv'
+#path_train = path+'train_1_sorted.csv'
+path_train = path+'train_3_sorted.csv'
 
 path_train_list = [
 #        path+'train_1_sorted.csv'
         path+'train_2_sorted.csv'
-       ,path+'train_3_sorted.csv'
-       ,path+'train_4_sorted.csv'
+#       ,path+'train_3_sorted.csv'
+#       ,path+'train_4_sorted.csv'
        ,path+'train_5_sorted.csv'
+       ,path+'train_6_sorted.csv'
+       ,path+'train_7_sorted.csv'
         ]
 
 
-path_out = path+'train_total3.csv';
+zeronum = 10
+index =4
+path_out = path+'train_total'+str(zeronum)+'_'+str(index)+'.csv';
 #path_train = path+'competition_test.txt'
 #path_out = path+'temp\\test_';
 
@@ -46,36 +51,33 @@ date_arr = date_train
 
 f = open(path_train, 'r',buffering=4096000)
 line = f.readline().strip('\n')
-line += '	order_index'
 
 fout = open(path_out,'w',buffering=4096000)
 fout.write(line+'\n')
 
 orderid = ''
 lastorderid = ''
-order_index =0
 sameorders=[]
 r_l=''
-zeronum = 3
-def addindex():
-    addstr = '	'+str(order_index)
-    return addstr
 
 def writeout(orders,num,label):
     words = label.split('\t')
+    if len(words) < 2 :
+        print orders
+        print label
     if words[2] not in jump:
         orderlen = len(orders)
         if orderlen <= num:
             fout.write(label+'\n')
             fout.writelines(orders)
         else:
-            orders = np.random.shuffle(orders)
+            np.random.shuffle(orders)
             fout.write(label+'\n')
-            fout.writelines(sameorders[0:num])
+            fout.writelines(orders[0:num])
     
 
 line = f.readline().strip('\n')
-line = f.readline().strip('\n')
+#line = f.readline().strip('\n')
 num_line = 0
 #while num_line < 1000 and line:
 while line:
@@ -84,14 +86,12 @@ while line:
     orderid = words[0]
     orderlabel = words[6]
     if orderid == lastorderid:
-        order_index += 1
+        pass
     else:
         if num_line!=1:
             writeout(sameorders,zeronum,r_l)
             sameorders = []
             r_l=''
-        order_index = 1
-    line += addindex()
     if orderlabel == '1':
         r_l = line
     else:
@@ -102,10 +102,15 @@ while line:
         print(num_line)
     line = f.readline().strip('\n')
     
+writeout(sameorders,zeronum,r_l)
+sameorders = []
+r_l=''
 f.close()
 
+new_num_line = 0
 for p in path_train_list:
     f = open(p, 'r',buffering=4096000)
+    line = f.readline().strip('\n')
     line = f.readline().strip('\n')
     while line:
         num_line += 1
@@ -113,13 +118,14 @@ for p in path_train_list:
         orderid = words[0]
         orderlabel = words[6]
         if orderid == lastorderid:
-            order_index += 1
+            pass
         else:
-            writeout(sameorders,zeronum,r_l)
-            sameorders=[]
-            r_l=''
-            order_index = 1
-        line += addindex()
+            if new_num_line == 0:
+                new_num_line =1
+            else:
+                writeout(sameorders,zeronum,r_l)
+                sameorders=[]
+                r_l=''
         if orderlabel == '1':
             r_l = line
         else:

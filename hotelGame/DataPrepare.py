@@ -14,6 +14,7 @@ select_features1 = [
 ,'returnvalue'
 ,'price_deduct'
 ,'basic_minarea'
+#,'basic_maxarea'
 #,'roomservice_1'
 ,'roomservice_2'
 #,'roomservice_3'
@@ -80,14 +81,14 @@ select_features1 = [
 ,'roomtag_3_lastord'
 ,'roomtag_4_lastord'
 ,'roomtag_5_lastord'
-,'roomtag_6_lastord'
+#,'roomtag_6_lastord'
 ,'star_lastord'
 ,'hotel_minprice_lastord'
 ,'basic_minprice_lastord'
 #,'order_index'
 ,'same_as_last_hotel'
 ,'same_as_last_basic_room'
-,'same_as_last_room'
+#,'same_as_last_room'
 ,'same_service2'
 ,'same_service3'
 ,'same_service4'
@@ -98,13 +99,13 @@ select_features1 = [
 ,'same_tag3'
 ,'same_tag4'
 ,'same_tag5'
-,'same_tag6'
+#,'same_tag6'
 ,'distance_last_tag3'
 ,'distance_avg_star'
 ,'distance_last_star'
 ,'distance_avg_return'
 ,'distance_last_return'
-,'avg_roomarea'
+#,'avg_roomarea'
 #,'distance_avg_roomarea'
 ,'distance_avg_price'
 ,'distance_avg_holiday_price'
@@ -121,9 +122,9 @@ select_features1 = [
 ,'price_diff_hotel'
 ,'price_diff_basicroom'
 ,'ordertype_1_ratio'
-#,'ordertype_2_ratio'
-#,'ordertype_3_ratio'
-#,'ordertype_4_ratio'
+,'ordertype_2_ratio'
+,'ordertype_3_ratio'
+,'ordertype_4_ratio'
 ,'ordertype_5_ratio'
 ,'ordertype_6_ratio'
 ,'ordertype_7_ratio'
@@ -131,10 +132,59 @@ select_features1 = [
 ,'ordertype_9_ratio'
 ,'ordertype_10_ratio'
 ,'ordertype_11_ratio'
-#,'orderbehavior_6_ratio'
-#,'orderbehavior_7_ratio'
-#,'orderbehavior_8'
-#,'orderbehavior_9'
+,'orderbehavior_6_ratio'
+,'orderbehavior_7_ratio'
+,'orderbehavior_8'
+,'orderbehavior_9'
+,'bigger_than_min_area'
+,'user_ordnum_1week'
+,'user_avgprice_1week'
+,'user_medprice_1week'
+,'user_minprice_1week'
+,'user_maxprice_1week'
+,'user_roomservice_3_123ratio_1week'
+,'user_roomservice_7_1ratio_1week'
+,'user_roomservice_7_0ratio_1week'
+,'user_roomservice_4_5ratio_1week'
+,'user_roomservice_4_4ratio_1week'
+,'user_roomservice_4_2ratio_1week'
+,'user_roomservice_4_3ratio_1week'
+,'user_roomservice_4_0ratio_1week'
+,'user_ordnum_1month'
+,'user_avgprice_1month'
+,'user_medprice_1month'
+,'user_minprice_1month'
+,'user_maxprice_1month'
+,'user_roomservice_3_123ratio_1month'
+,'user_roomservice_7_1ratio_1month'
+,'user_roomservice_7_0ratio_1month'
+,'user_roomservice_4_5ratio_1month'
+,'user_roomservice_4_4ratio_1month'
+,'user_roomservice_4_2ratio_1month'
+,'user_roomservice_4_3ratio_1month'
+,'user_roomservice_4_0ratio_1month'
+,'user_ordnum_3month'
+,'user_avgprice_3month'
+,'user_medprice_3month'
+,'user_minprice_3month'
+,'user_maxprice_3month'
+,'user_roomservice_3_123ratio_3month'
+,'user_roomservice_7_1ratio_3month'
+,'user_roomservice_7_0ratio_3month'
+,'user_roomservice_4_5ratio_3month'
+,'user_roomservice_4_4ratio_3month'
+,'user_roomservice_4_2ratio_3month'
+,'user_roomservice_4_3ratio_3month'
+,'user_roomservice_4_0ratio_3month'
+,'confirmtime_positive'
+,'advanceddate_positive'
+,'roomservice_3_123'
+,'roomservice_8_345'
+,'total_service_num'
+,'total_tag_num'
+,'order_price_index'
+,'basicroom_price_index'
+,'basicroom_rank_index'
 ,0
 ,1
 ,2
@@ -181,6 +231,7 @@ select_features2 = [
 ,'returnvalue'
 ,'price_deduct'
 ,'basic_minarea'
+#,'basic_maxarea'
 #,'roomservice_1'
 ,'roomservice_2'
 #,'roomservice_3'
@@ -247,14 +298,14 @@ select_features2 = [
 ,'roomtag_3_lastord'
 ,'roomtag_4_lastord'
 ,'roomtag_5_lastord'
-,'roomtag_6_lastord'
+#,'roomtag_6_lastord'
 ,'star_lastord'
 ,'hotel_minprice_lastord'
 ,'basic_minprice_lastord'
 #,'order_index'
 ,'same_as_last_hotel'
 ,'same_as_last_basic_room'
-,'same_as_last_room'
+#,'same_as_last_room'
 ,'same_service2'
 ,'same_service3'
 ,'same_service4'
@@ -265,13 +316,13 @@ select_features2 = [
 ,'same_tag3'
 ,'same_tag4'
 ,'same_tag5'
-,'same_tag6'
+#,'same_tag6'
 ,'distance_last_tag3'
 ,'distance_avg_star'
 ,'distance_last_star'
 ,'distance_avg_return'
 ,'distance_last_return'
-,'avg_roomarea'
+#,'avg_roomarea'
 #,'distance_avg_roomarea'
 ,'distance_avg_price'
 ,'distance_avg_holiday_price'
@@ -288,9 +339,9 @@ select_features2 = [
 ,'price_diff_hotel'
 ,'price_diff_basicroom'
 ,'ordertype_1_ratio'
-#,'ordertype_2_ratio'
-#,'ordertype_3_ratio'
-#,'ordertype_4_ratio'
+,'ordertype_2_ratio'
+,'ordertype_3_ratio'
+,'ordertype_4_ratio'
 ,'ordertype_5_ratio'
 ,'ordertype_6_ratio'
 ,'ordertype_7_ratio'
@@ -298,10 +349,59 @@ select_features2 = [
 ,'ordertype_9_ratio'
 ,'ordertype_10_ratio'
 ,'ordertype_11_ratio'
-#,'orderbehavior_6_ratio'
-#,'orderbehavior_7_ratio'
-#,'orderbehavior_8'
-#,'orderbehavior_9'
+,'orderbehavior_6_ratio'
+,'orderbehavior_7_ratio'
+,'orderbehavior_8'
+,'orderbehavior_9'
+,'bigger_than_min_area'
+,'user_ordnum_1week'
+,'user_avgprice_1week'
+,'user_medprice_1week'
+,'user_minprice_1week'
+,'user_maxprice_1week'
+,'user_roomservice_3_123ratio_1week'
+,'user_roomservice_7_1ratio_1week'
+,'user_roomservice_7_0ratio_1week'
+,'user_roomservice_4_5ratio_1week'
+,'user_roomservice_4_4ratio_1week'
+,'user_roomservice_4_2ratio_1week'
+,'user_roomservice_4_3ratio_1week'
+,'user_roomservice_4_0ratio_1week'
+,'user_ordnum_1month'
+,'user_avgprice_1month'
+,'user_medprice_1month'
+,'user_minprice_1month'
+,'user_maxprice_1month'
+,'user_roomservice_3_123ratio_1month'
+,'user_roomservice_7_1ratio_1month'
+,'user_roomservice_7_0ratio_1month'
+,'user_roomservice_4_5ratio_1month'
+,'user_roomservice_4_4ratio_1month'
+,'user_roomservice_4_2ratio_1month'
+,'user_roomservice_4_3ratio_1month'
+,'user_roomservice_4_0ratio_1month'
+,'user_ordnum_3month'
+,'user_avgprice_3month'
+,'user_medprice_3month'
+,'user_minprice_3month'
+,'user_maxprice_3month'
+,'user_roomservice_3_123ratio_3month'
+,'user_roomservice_7_1ratio_3month'
+,'user_roomservice_7_0ratio_3month'
+,'user_roomservice_4_5ratio_3month'
+,'user_roomservice_4_4ratio_3month'
+,'user_roomservice_4_2ratio_3month'
+,'user_roomservice_4_3ratio_3month'
+,'user_roomservice_4_0ratio_3month'
+,'confirmtime_positive'
+,'advanceddate_positive'
+,'roomservice_3_123'
+,'roomservice_8_345'
+,'total_service_num'
+,'total_tag_num'
+,'order_price_index'
+,'basicroom_price_index'
+,'basicroom_rank_index'
 ,'0'
 ,'1'
 ,'2'
@@ -348,31 +448,31 @@ def prepareData(dataset1):
     """""""""""""""""""""""""""""""""""""""""""""""""""
           process data
     """""""""""""""""""""""""""""""""""""""""""""""""""
-#    尝试下return_lastord  returnvalue  user_avgpromotion
     
-    dataset1['returnvalue'] = dataset1['returnvalue']-200
-    dataset1['return_lastord'] = dataset1['return_lastord']-200
-    dataset1['user_avgpromotion'] = dataset1['user_avgpromotion']-200
     
+#    填充房屋面积
     dataset1.ix[dataset1['basic_minarea']<=0,'basic_minarea'] = np.nan
     dataset1.ix[dataset1['basic_maxarea']<=0,'basic_maxarea'] = np.nan
     
-    df1 = dataset1[['orderid','price_deduct']].groupby('orderid').min().reset_index()
+    df1 = dataset1[['orderid','price_deduct']].groupby('orderid',as_index=False).min()
+    df1.reset_index(drop=True,inplace=True)
     df1.columns = ['orderid','ordermin']
-    df1 = pd.merge(dataset1[['orderid','price_deduct','orderlabel']],df1,on=['orderid'],how='left',suffixes=['','_y'])
+    df1 = pd.merge(dataset1[['orderid','price_deduct']],df1,on=['orderid'],how='left',suffixes=['','_y'])
     dataset1['price_diff_order'] = df1['price_deduct']-df1['ordermin']
     del df1
     
-    df2 = dataset1[['orderid','hotelid','price_deduct']].groupby(['orderid','hotelid']).min().reset_index()
+    df2 = dataset1[['orderid','hotelid','price_deduct']].groupby(['orderid','hotelid'],as_index=False).min()
+    df2.reset_index(drop=True,inplace=True)
     df2.columns = ['orderid','hotelid','hotelmin']
-    df2 = pd.merge(dataset1[['orderid','hotelid','price_deduct','orderlabel']],df2,on=['orderid','hotelid'],how='left',suffixes=['','_y'])
+    df2 = pd.merge(dataset1[['orderid','hotelid','price_deduct',]],df2,on=['orderid','hotelid'],how='left',suffixes=['','_y'])
     dataset1['price_diff_hotel'] = df2['price_deduct']-df2['hotelmin']
     del df2
     
     
-    df3 = dataset1[['orderid','basicroomid','price_deduct']].groupby(['orderid','basicroomid']).min().reset_index()
+    df3 = dataset1[['orderid','basicroomid','price_deduct']].groupby(['orderid','basicroomid'],as_index=False).min()
+    df3.reset_index(drop=True,inplace=True)
     df3.columns = ['orderid','basicroomid','basicroommin']
-    df3 = pd.merge(dataset1[['orderid','basicroomid','price_deduct','orderlabel']],df3,on=['orderid','basicroomid'],how='left',suffixes=['','_y'])
+    df3 = pd.merge(dataset1[['orderid','basicroomid','price_deduct',]],df3,on=['orderid','basicroomid'],how='left',suffixes=['','_y'])
     dataset1['price_diff_basicroom'] = df3['price_deduct']-df3['basicroommin']
     del df3
     
@@ -401,19 +501,72 @@ def prepareData(dataset1):
     dataset1.fillna(zero_dict,inplace=True)
     #fillna(mean)
     mean_dict={
-            'roomtag_3':dataset1['roomtag_3'].mean()
-            ,'user_confirmtime':dataset1['user_confirmtime'].mean()
-            ,'user_avgdealprice':dataset1['user_avgdealprice'].mean()
-            ,'user_avgpromotion':dataset1['user_avgpromotion'].mean()
-            ,'user_avgprice_star':dataset1['user_avgprice_star'].mean()
-            ,'user_activation':dataset1['user_activation'].mean()
-            ,'user_stdprice':dataset1['user_stdprice'].mean()
-            ,'user_cvprice':dataset1['user_cvprice'].mean()
-            ,'user_avgrecommendlevel':dataset1['user_avgrecommendlevel'].mean()
+             'user_confirmtime':dataset1['user_confirmtime'].median()
+            ,'user_avgdealprice':dataset1['user_avgdealprice'].median()
+            ,'user_avgpromotion':dataset1['user_avgpromotion'].median()
+            ,'user_avgprice_star':dataset1['user_avgprice_star'].median()
+            ,'user_activation':dataset1['user_activation'].median()
+            ,'user_stdprice':dataset1['user_stdprice'].median()
+            ,'user_cvprice':dataset1['user_cvprice'].median()
+            ,'user_avgrecommendlevel':dataset1['user_avgrecommendlevel'].median()
             }
     
     dataset1.fillna(mean_dict,inplace=True)
+    #    填充最小值
+#    min_dict = {
+#            
+#            'user_ordnum_1week':dataset1['user_ordnum_1week'].min(),
+#            'user_ordnum_1month':dataset1['user_ordnum_1month'].min(),
+#            'user_ordnum_3month':dataset1['user_ordnum_3month'].min(),
+#            
+#            
+#            'user_avgprice_1week':dataset1['user_avgprice_1week'].min(),
+#            'user_medprice_1week':dataset1['user_medprice_1week'].min(),
+#            'user_minprice_1week':dataset1['user_minprice_1week'].min(),
+#            'user_maxprice_1week':dataset1['user_maxprice_1week'].min(),
+#            
+#            'user_avgprice_1month':dataset1['user_avgprice_1month'].min(),
+#            'user_medprice_1month':dataset1['user_medprice_1month'].min(),
+#            'user_minprice_1month':dataset1['user_minprice_1month'].min(),
+#            'user_maxprice_1month':dataset1['user_maxprice_1month'].min(),
+#            
+#            'user_avgprice_3month':dataset1['user_avgprice_3month'].min(),
+#            'user_medprice_3month':dataset1['user_medprice_3month'].min(),
+#            'user_minprice_3month':dataset1['user_minprice_3month'].min(),
+#            'user_maxprice_3month':dataset1['user_maxprice_3month'].min(),
+#            
+#            'roomtag_3':dataset1['roomtag_3'].min()
+#            }
+#    dataset1.fillna(min_dict,inplace=True)
+    min_dict = {
+            
+            'user_ordnum_1week':0,
+            'user_ordnum_1month':0,
+            'user_ordnum_3month':0,
+            
+            
+            'user_avgprice_1week':0,
+            'user_medprice_1week':0,
+            'user_minprice_1week':0,
+            'user_maxprice_1week':0,
+            
+            'user_avgprice_1month':0,
+            'user_medprice_1month':0,
+            'user_minprice_1month':0,
+            'user_maxprice_1month':0,
+            
+            'user_avgprice_3month':0,
+            'user_medprice_3month':0,
+            'user_minprice_3month':0,
+            'user_maxprice_3month':0,
+            
+            'roomtag_3':dataset1['roomtag_3'].min()
+            }
+    dataset1.fillna(min_dict,inplace=True)
     
+#    临时处理
+    dataset1.ix[dataset1['basic_minarea']<=0,'basic_minarea'] = np.nan
+    dataset1.ix[dataset1['basic_maxarea']<=0,'basic_maxarea'] = np.nan
     mean_temp_dict={
              'roomservice_2_lastord':0
             ,'roomservice_3_lastord':0
@@ -425,23 +578,40 @@ def prepareData(dataset1):
             ,'roomtag_4_lastord':0
             ,'roomtag_5_lastord':0
             ,'roomtag_6_lastord':0
-            ,'hotel_minprice_lastord':dataset1['hotel_minprice_lastord'].mean()
-            ,'basic_minprice_lastord':dataset1['basic_minprice_lastord'].mean()
-            ,'rank_lastord':dataset1['rank_lastord'].mean()
-            ,'return_lastord':dataset1['return_lastord'].mean()
-            ,'price_last_lastord':dataset1['price_last_lastord'].mean()
-            ,'star_lastord':dataset1['star_lastord'].mean()
+            ,'hotel_minprice_lastord':dataset1['hotel_minprice_lastord'].median()
+            ,'basic_minprice_lastord':dataset1['basic_minprice_lastord'].median()
+            ,'rank_lastord':dataset1['rank_lastord'].median()
+            ,'return_lastord':dataset1['return_lastord'].median()
+            ,'price_last_lastord':dataset1['price_last_lastord'].median()
+            ,'star_lastord':dataset1['star_lastord'].median()
     #        TODO
-            ,'user_rank_ratio':dataset1['user_rank_ratio'].mean()
-            ,'basic_minarea':dataset1['basic_minarea'].mean()
-            ,'basic_maxarea':dataset1['basic_maxarea'].mean()
+            ,'user_rank_ratio':dataset1['user_rank_ratio'].median()
+            ,'basic_minarea':dataset1['basic_minarea'].median()
     #        TODO
             }
     
     dataset1.fillna(mean_temp_dict,inplace=True)
     
-    #(0,1)处理
+#    same order mean
+    df4 = dataset1[['orderid','basic_minarea']].groupby(['orderid'],as_index=False).median()
+    df4.reset_index(drop=True,inplace=True)
+    df4.columns=['orderid','basic_minarea_mean']
+    df4 = pd.merge(dataset1.ix[dataset1['basic_minarea'].isnull(),['orderid','roomid']],df4,on=['orderid'],how='left',suffixes=['','_y'])
+    dataset1.ix[dataset1['basic_minarea'].isnull(),['basic_minarea']] = df4['basic_minarea_mean']
+#    dataset1.fillna({'basic_minarea':dataset1['basic_minarea'].median()},inplace=True)
+    del df4
+
+    dataset1['bigger_than_min_area'] = 0
+    dataset1.ix[dataset1['basic_maxarea']>dataset1['basic_minarea'],'bigger_than_min_area'] =1
+    df5 = dataset1[['orderid','basic_maxarea']].groupby(['orderid'],as_index=False).median()
+    df5.reset_index(drop=True,inplace=True)
+    df5.columns=['orderid','basic_maxarea_mean']
+    df5 = pd.merge(dataset1.ix[dataset1['basic_maxarea'].isnull(),['orderid','roomid']],df5,on=['orderid'],how='left',suffixes=['','_y'])
+    dataset1.ix[dataset1['basic_maxarea'].isnull(),['basic_maxarea']] = df5['basic_maxarea_mean']
+#    dataset1.fillna({'basic_maxarea':dataset1['basic_maxarea'].median()},inplace=True)
+    del df5
     
+    #(0,1)处理
     dataset1.ix[dataset1.roomtag_2.notnull(),'roomtag_2'] = 1
     dataset1.ix[dataset1.roomtag_2.isnull(),'roomtag_2'] = 0
     dataset1.ix[dataset1.roomtag_2_lastord.notnull(),'roomtag_2_lastord'] = 1
@@ -454,7 +624,16 @@ def prepareData(dataset1):
     workday_ratio = dataset1['user_avgdealpriceworkday'].mean()/dataset1['user_avgdealprice'].mean()
     dataset1.ix[dataset1.user_avgdealpriceworkday.isnull(),'user_avgdealpriceworkday'] = dataset1.ix[dataset1['user_avgdealpriceworkday'].isnull(),'user_avgdealprice']*workday_ratio
     
+#    确认时间不应该有正数
+    dataset1['confirmtime_positive'] = 0
+    dataset1.ix[dataset1['user_confirmtime']>=0,'confirmtime_positive'] = 1
+    dataset1.ix[dataset1['user_confirmtime']>0,'user_confirmtime'] = 0
     
+    
+    dataset1['advanceddate_positive'] = 0
+    dataset1.ix[dataset1['user_avgadvanceddate']>=0,'advanceddate'] = 1
+    dataset1.ix[dataset1['user_avgadvanceddate']>0,'user_avgadvanceddate'] = 0
+
     """""""""""""""""""""""""""""""""""""""""""""""""""
           create feature
     """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -516,8 +695,8 @@ def prepareData(dataset1):
     
     #计算该次平均面积	avg_roomarea
     dataset1['avg_roomarea'] = (dataset1['basic_maxarea'] + dataset1['basic_minarea'])/2
-    #将平均面积标签化
-    dataset1['user_avgroomarea'] = dataset1['user_avgroomarea'].astype('int')
+#    #将平均面积标签化
+#    dataset1['user_avgroomarea'] = dataset1['user_avgroomarea'].astype('int')
     ##与过去平均面积的差距	distance_avg_roomarea
     #dataset1['distance_avg_roomarea'] = dataset1['avg_roomarea'] - dataset1['user_avgroomnum']
     ##与上次面积的差距	distance_last_roomarea
@@ -551,6 +730,32 @@ def prepareData(dataset1):
     dataset1['is_holiday'] = 0
     dataset1['is_holiday'] = dataset1.ix[dataset1['orderdate'].isin(holiday_list),'is_holiday'] = 1
 
+
+
+#    针对后续特征特殊处理
+    dataset1['roomservice_3_123'] = 1
+    dataset1.ix[dataset1['roomservice_3']==0,'roomservice_3_123'] = 0
+
+
+    dataset1['roomservice_8_345'] = 1
+    dataset1.ix[(dataset1['user_roomservice_5_345ratio']==1)&(dataset1['user_roomservice_5_345ratio']==2),'roomservice_3_123'] = 0
+    
+#    total_service_num
+    dataset1['total_service_num'] = 0
+    dataset1.ix[dataset1['roomservice_2']>0,'total_service_num']+=1
+    dataset1.ix[dataset1['roomservice_3']>0,'total_service_num']+=1
+    dataset1.ix[dataset1['roomservice_4']>0,'total_service_num']+=1
+    dataset1.ix[dataset1['roomservice_5']>0,'total_service_num']+=1
+    dataset1.ix[dataset1['roomservice_6']>0,'total_service_num']+=1
+    dataset1.ix[dataset1['roomservice_7']>0,'total_service_num']+=1
+    
+    dataset1['total_tag_num'] = 0
+    dataset1.ix[dataset1['roomtag_1']>0,'total_tag_num']+=1
+    dataset1.ix[dataset1['roomtag_4']>0,'total_tag_num']+=1
+    dataset1.ix[dataset1['roomtag_5']>0,'total_tag_num']+=1
+    
+    
+    
     """
             对定性特征哑编码
     """
@@ -559,19 +764,6 @@ def prepareData(dataset1):
     #enc = OneHotEncoder(categorical_features=onehot_arr,n_values=[3,4,6,3,5,4,6,3,5],sparse=False)
     enc = OneHotEncoder(categorical_features='all',n_values='auto',sparse=False)
     
-    #onehot_arr=[
-    #         'roomservice_1'
-    #        ,'roomservice_2'
-    #        ,'roomservice_3'
-    #        ,'roomservice_4'
-    #        ,'roomservice_5'
-    #        ,'roomservice_6'
-    #        ,'roomservice_7'
-    #        ,'roomservice_8'
-    #        ,'roomtag_1'
-    #        ,'roomtag_4'
-    #        ,'roomtag_5'
-    #        ]
     onehot_arr=[
              'roomservice_1'
             ,'roomservice_3'
@@ -583,7 +775,6 @@ def prepareData(dataset1):
             ,'roomservice_6_lastord'
             ,'roomservice_8_lastord'
             ]
-#    dataset1_list = dataset1[onehot_arr]
     
     enc.fit(dataset1[onehot_arr].values)
     dataset1_t = enc.transform(dataset1[onehot_arr].values)

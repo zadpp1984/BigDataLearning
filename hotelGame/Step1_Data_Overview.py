@@ -4,15 +4,6 @@ Created on Sat May 27 00:27:47 2017
 
 @author: Chenanyun
 """
-
-import pandas as pd
-
-#path = 'F:\\MyPython\\resource\\ctrip\\'
-path = 'E:\\cay\\resource\\'
-
-path_train = path+'competition_train.txt'
-#path_train = path+'competition_test.txt'
-
 basicCol=[
         'orderid'
         ,'uid'
@@ -174,9 +165,21 @@ basicCol=[
          ]
 
 usecols = [
-        'returnvalue'
+        'orderid'
+        ,'basicroomid'
+        ,'roomid'
+        ,'orderlabel'
+        ,'basic_minarea'
+        ,'basic_maxarea'
         ]
+import pandas as pd
+import numpy as np
 
+#path = 'F:\\MyPython\\resource\\ctrip\\'
+path = 'E:\\cay\\resource\\'
+
+path_train = path+'competition_train.txt'
+#path_train = path+'competition_test.txt'
 file_handler = pd.read_table(path_train,
                              sep='\t',
                              chunksize=100000,
@@ -188,13 +191,22 @@ total_train,j = 0,1
 for data_i in file_handler:
     dataset = pd.concat((dataset,data_i),axis=0,ignore_index=True)
     total_train += data_i.shape[0]
-    print(j,end=',')
+    print j
     j+=1
     if total_train >= 1000000:
         break 
 del data_i
 
-dataset2=dataset[:10000]
+#dataset.sort_values(['orderid','roomid'],inplace=True)
+dataset_null1 = dataset[dataset['basic_minarea'].isnull()]
+dataset.ix[dataset['basic_minarea']<=0,'basic_minarea'] = np.nan
+dataset.ix[dataset['basic_maxarea']<=0,'basic_maxarea'] = np.nan
+df4 = dataset[['orderid','basic_minarea']].groupby(['orderid']).mean().reset_index()
+df4.columns=['orderid','basic_minarea_mean']
+df4 = pd.merge(dataset.ix[dataset['basic_minarea'].isnull(),['orderid','roomid']],df4,on=['orderid'],how='left',suffixes=['','_y'])
+dataset.ix[dataset['basic_minarea'].isnull(),['basic_minarea']] = df4['basic_minarea_mean']
+dataset.fillna({'basic_minarea':dataset['basic_minarea'].mean()},inplace=True)
+del df4
 
 #dataset.describe().to_csv(path+'describe.csv')
 
@@ -202,19 +214,21 @@ dataset2=dataset[:10000]
 #dataset.describe(include='all')
 #dataset.head(10)
 
-import numpy as np
-import matplotlib.pylab as plt
-import seaborn as sns
+#import numpy as np
+#import matplotlib.pylab as plt
+#import seaborn as sns
 #%matplotlib qt5
-
-dataset2.sort_values(by='returnvalue',axis=0,inplace=True)
-dataset2.reset_index(drop=True,inplace=True)
-dataset2['newcol'] = dataset2['returnvalue'].pow(other=0.1)
-plt.scatter(dataset2.index.values,dataset2['returnvalue'].values)
-plt.scatter(dataset2.index.values,np.log(dataset2['returnvalue'].values))
-plt.scatter(dataset2.index.values,np.log2(dataset2['returnvalue'].values))
-plt.scatter(dataset2.index.values,np.log10(dataset2['returnvalue'].values))
 #plt.figure.Figure(figsize=(30,30))
 #corr1 = dataset.dropna().corr()
 #sns.heatmap(corr1,annot=True)
+
+
+#dataset2=dataset[:1000]
+#dataset2.sort_values(by='returnvalue',axis=0,inplace=True)
+#dataset2.reset_index(drop=True,inplace=True)
+#dataset2['newcol'] = dataset2['returnvalue'].pow(other=0.1)
+#plt.scatter(dataset2.index.values,dataset2['returnvalue'].values)
+#plt.scatter(dataset2.index.values,np.log(dataset2['returnvalue'].values))
+#plt.scatter(dataset2.index.values,np.log2(dataset2['returnvalue'].values))
+#plt.scatter(dataset2.index.values,np.log10(dataset2['returnvalue'].values))
 

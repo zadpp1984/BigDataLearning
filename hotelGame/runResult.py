@@ -9,163 +9,19 @@ import pandas as pd
 import DataPrepare as DP
 import xgboost as xgb
 
-select_features = [
- 'star'
-,'rank'
-,'returnvalue'
-,'price_deduct'
-,'basic_minarea'
-#,'roomservice_1'
-,'roomservice_2'
-#,'roomservice_3'
-#,'roomservice_4'
-,'roomservice_5'
-#,'roomservice_6'
-,'roomservice_7'
-#,'roomservice_8'
-,'roomtag_1'
-,'roomtag_2'
-,'roomtag_3'
-,'roomtag_4'
-,'roomtag_5'
-#,'roomtag_6'
-,'user_confirmtime'
-,'user_avgadvanceddate'
-,'user_avgstar'
-,'user_avggoldstar'
-,'user_avgrecommendlevel'
-,'user_avgroomnum'
-,'user_avgdealpriceholiday'
-,'user_avgdealpriceworkday'
-,'user_avgdealprice'
-,'user_avgpromotion'
-,'user_avgprice_star'
-,'user_ordernum'
-,'user_activation'
-,'user_avgprice'
-,'user_maxprice'
-,'user_minprice'
-,'user_stdprice'
-,'user_cvprice'
-,'user_citynum'
-,'user_avgroomarea'
-,'user_roomservice_4_0ratio'
-,'user_roomservice_4_2ratio'
-,'user_roomservice_4_3ratio'
-,'user_roomservice_4_4ratio'
-,'user_roomservice_4_1ratio'
-,'user_roomservice_4_5ratio'
-,'user_roomservice_3_123ratio'
-,'user_roomservice_6_2ratio'
-,'user_roomservice_6_1ratio'
-,'user_roomservice_6_0ratio'
-,'user_roomservice_5_1ratio'
-,'user_roomservice_7_0ratio'
-,'user_roomservice_2_1ratio'
-,'user_roomservice_8_1ratio'
-,'user_rank_ratio'
-,'user_roomservice_5_345ratio'
-,'basic_week_ordernum_ratio'
-,'basic_recent3_ordernum_ratio'
-,'basic_comment_ratio'
-,'rank_lastord'
-,'return_lastord'
-,'price_last_lastord'
-,'roomservice_2_lastord'
-#,'roomservice_3_lastord'
-#,'roomservice_4_lastord'
-,'roomservice_5_lastord'
-#,'roomservice_6_lastord'
-#,'roomservice_8_lastord'
-,'roomtag_2_lastord'
-,'roomtag_3_lastord'
-,'roomtag_4_lastord'
-,'roomtag_5_lastord'
-,'roomtag_6_lastord'
-,'star_lastord'
-,'hotel_minprice_lastord'
-,'basic_minprice_lastord'
-#,'order_index'
-,'same_as_last_hotel'
-,'same_as_last_basic_room'
-,'same_as_last_room'
-,'same_service2'
-,'same_service3'
-,'same_service4'
-,'same_service5'
-,'same_service6'
-,'same_service8'
-,'same_tag2'
-,'same_tag3'
-,'same_tag4'
-,'same_tag5'
-,'same_tag6'
-,'distance_last_tag3'
-,'distance_avg_star'
-,'distance_last_star'
-,'distance_avg_return'
-,'distance_last_return'
-,'avg_roomarea'
-#,'distance_avg_roomarea'
-,'distance_avg_price'
-,'distance_avg_holiday_price'
-,'distance_avg_workday_price'
-,'between_max_min'
-,'distance_avg_rank'
-,'distance_last_rank'
-,'date_from_last'
-,'is_holiday'
-#,'room_order_num'
-#,'basicroom_order_num'
-#,'hotel_order_num'
-,0
-,1
-,2
-,3
-,4
-,5
-,6
-,7
-,8
-,9
-,10
-,11
-,12
-,13
-,14
-,15
-,16
-,17
-,18
-,19
-,20
-,21
-,22
-,23
-,24
-,25
-,26
-,27
-,28
-,29
-,30
-,31
-,32
-,33
-,34
-,35
-,36
-,37
-,38
-        ]
-
-path = 'F:\\MyPython\\resource\\ctrip\\'
-#path = 'E:\\cay\\resource\\temp\\'
+#path = 'F:\\MyPython\\resource\\ctrip\\'
+path = 'E:\\cay\\resource\\temp\\'
 
 #from sklearn.externals.joblib import load
 #gbc = load('gbc_total.dmp')
-bst = xgb.Booster() #init model
-bst.load_model("xgboost.model") # load data
+bst1 = xgb.Booster() 
+bst2 = xgb.Booster() 
+bst3 = xgb.Booster() 
+bst4 = xgb.Booster() 
+bst1.load_model("xgboost10_1.model")
+bst2.load_model("xgboost10_2.model")
+bst3.load_model("xgboost10_3.model")
+bst4.load_model("xgboost10_4.model")
 
 def read_data(file):
     
@@ -188,21 +44,48 @@ def read_data(file):
     del data_i
     return dataset
 
+weight=[1,1,1,1]
 
+result_pd1 = pd.DataFrame()
+result_pd2 = pd.DataFrame()
+result_pd3 = pd.DataFrame()
+result_pd4 = pd.DataFrame()
+result_pd5 = pd.DataFrame()
 
-result_pd = pd.DataFrame()
+for i in [1,2,3,4,5,6,7]:
+    path_train = path+'test_'+str(i)+'.csv'
+    dataset1 = read_data(path_train)
+    dataset1 = DP.prepareData(dataset1)
+    dataset1.fillna(0,inplace=True)
+    compare_train = dataset1.ix[:,['orderid','roomid']]
+    dataset1 = dataset1[DP.select_features1]
+    xg_test = xgb.DMatrix(dataset1,featrue_names=DP.select_features1)
 
+    predict1 = bst1.predict(xg_test)
+    predict2 = bst2.predict(xg_test)
+    predict3 = bst3.predict(xg_test)
+    predict4 = bst4.predict(xg_test)
+    predict5 = weight[0]*predict1 + weight[1]*predict2 + weight[2]*predict3 + weight[3]*predict4
 
-path_train = path+'test_1.csv'
-dataset1 = read_data(path_train)
-dataset1 = DP.prepareData(dataset1)
-compare_train = dataset1.ix[:,['orderid','roomid']]
-dataset1 = dataset1[select_features]
-xg_test = xgb.DMatrix(dataset1)
+    mix1 = pd.concat([compare_train,pd.DataFrame(predict1)],axis=1)
+    mix2 = pd.concat([compare_train,pd.DataFrame(predict2)],axis=1)
+    mix3 = pd.concat([compare_train,pd.DataFrame(predict3)],axis=1)
+    mix4 = pd.concat([compare_train,pd.DataFrame(predict4)],axis=1)
+    mix5 = pd.concat([compare_train,pd.DataFrame(predict5)],axis=1)
+    
+    result_pd1 = pd.concat([result_pd1,mix1.loc[mix1.groupby('orderid',as_index=False).apply(lambda x:x[0].argmax()),['orderid','roomid']]])   
+    result_pd2 = pd.concat([result_pd2,mix2.loc[mix2.groupby('orderid',as_index=False).apply(lambda x:x[0].argmax()),['orderid','roomid']]])   
+    result_pd3 = pd.concat([result_pd3,mix3.loc[mix3.groupby('orderid',as_index=False).apply(lambda x:x[0].argmax()),['orderid','roomid']]])  
+    result_pd4 = pd.concat([result_pd4,mix4.loc[mix4.groupby('orderid',as_index=False).apply(lambda x:x[0].argmax()),['orderid','roomid']]])  
+    result_pd5 = pd.concat([result_pd5,mix5.loc[mix5.groupby('orderid',as_index=False).apply(lambda x:x[0].argmax()),['orderid','roomid']]])    
 
-predict_train = bst.predict(xg_test)
-
-compare_train = pd.concat([compare_train,pd.DataFrame(predict_train)],axis=1)
-result_pd = pd.concat([result_pd,compare_train.loc[compare_train.groupby('orderid',as_index=False).apply(lambda x:x[0].argmax()),['orderid','roomid']]])    
-
-result_pd.to_csv(path+'\\result\\result_total1.csv',index=False)
+result_pd1.columns = ['orderid','predict_roomid']
+result_pd1.to_csv(path+'submission_sample1.csv',index=False)
+result_pd2.columns = ['orderid','predict_roomid']
+result_pd2.to_csv(path+'submission_sample2.csv',index=False)
+result_pd3.columns = ['orderid','predict_roomid']
+result_pd3.to_csv(path+'submission_sample3.csv',index=False)
+result_pd4.columns = ['orderid','predict_roomid']
+result_pd4.to_csv(path+'submission_sample4.csv',index=False)
+result_pd5.columns = ['orderid','predict_roomid']
+result_pd5.to_csv(path+'submission_sample.csv',index=False)

@@ -36,13 +36,18 @@ def read_data(file):
     del data_i
     return dataset
 
-bst = xgb.Booster() #init model
-bst.load_model("xgboost3.model") # load data
-dataset2 = read_data('preprocessed_test.csv').values
+#path = 'F:\\MyPython\\resource\\ctrip\\'
+path = 'E:\\cay\\resource\\temp\\'
+dataset2 = read_data(path+'preprocessed_test.csv').values
 xg_test = xgb.DMatrix(dataset2)
+
+bst = xgb.Booster() #init model
+#bst.load_model("xgboost2.model")
+#bst.load_model("xgboost3.model")
+bst.load_model("xgboost8_2.model")
 predict_test = bst.predict(xg_test) 
 
 
-compare_test = read_data('preprocessed_test_compare.csv')
+compare_test = read_data(path+'preprocessed_test_compare.csv')
 result_test = compare_test.ix[compare_test['orderlabel']==1,['orderid','roomid']]
 printScore(compare_test,result_test,predict_test)
