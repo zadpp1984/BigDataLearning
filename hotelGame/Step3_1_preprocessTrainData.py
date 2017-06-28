@@ -6,18 +6,16 @@ Created on Mon Jun  5 14:09:03 2017
 """
 import pandas as pd
 import numpy as np
-import DataPrepare as DP
+import DataPrepare2 as DP2
 
-#path = 'F:\\MyPython\\resource\\ctrip\\'
+#path = 'F:\\MyPython\\resource\\ctrip\\sorted\\'
 path = 'E:\\cay\\resource\\temp\\'
 
 m=10
-index=4
+index=1
 
-#path_train = path+'train_1.csv'
+#path_train = path+'train_2_sorted.csv'
 path_train = path+'train_total'+str(m)+'_'+str(index)+'.csv'
-#path_train = path+'train_total.csv'
-#path_test = path+'test_1.csv'
 
 
 def read_data(file):
@@ -41,12 +39,32 @@ def read_data(file):
     del data_i
     return dataset
 
+
+
 dataset1 = read_data(path_train)
-dataset1 = DP.prepareData(dataset1)
+dataset1 = DP2.prepareData(dataset1)
+
+#my_list=[
+#        'basic_week_ordernum_ratio'
+#        ,'basic_recent3_ordernum_ratio'
+#        ,'basic_comment_ratio'
+#        ,'basic_30days_ordnumratio'
+#        ,'basic_30days_realratio'
+##        ,'room_30days_ordnumratio'
+##        ,'room_30days_realratio'
+#]
+#path_room = path+'room.csv'
+#df = read_data(path_room)
+#dataset1.drop(my_list,axis=1,inplace=True)
+#dataset1 = pd.merge(dataset1,df,on=['orderid','hotelid','basicroomid'],how='left',suffixes=['','_y'])
+
+dataset1[DP2.select_features].to_csv(path+'preprocessed_train'+str(m)+'_'+str(index)+'.csv',sep='\t',index=False)
+dataset1[['orderlabel']].to_csv(path+'preprocessed_train_Y'+str(m)+'_'+str(index)+'.csv',sep='\t',index=False)
+
 #dataset1.dropna(axis=1,how='all',inplace=True)
 #dataset1.dropna(axis=0,how='any',inplace=True)
 #dataset2 = read_data(path_test)
-#dataset1.describe(percentiles=[.05,.25,.75,.95,.99],include='all').to_csv(path+'describe.csv')
+#dataset1.describe(percentiles=[.01,.05,.25,.75,.95,.99],include='all').to_csv(path+'describe.csv')
 #dataset1.describe(percentiles=[.05,.25,.75,.95,.99],include='all')
 #dataset1.info(verbose=True,null_counts=True)
 
@@ -74,12 +92,12 @@ dataset1 = DP.prepareData(dataset1)
 #dataset1 = pd.merge(dataset1, hotel_order_num, on='hotelid',how='left')
 
 
-dataset1.fillna(0,inplace=True)
+#dataset1.fillna(0,inplace=True)
 
-label1 = dataset1.loc[dataset1['orderlabel']==1]
-dataset1 = dataset1.append(label1,ignore_index=True)
-dataset1[DP.select_features1].to_csv(path+'preprocessed_train'+str(m)+'_'+str(index)+'.csv',index=False)
-dataset1[['orderlabel']].to_csv(path+'preprocessed_train_Y'+str(m)+'_'+str(index)+'.csv',index=False)
+#label1 = dataset1.loc[dataset1['orderlabel']==1]
+#dataset1 = dataset1.append(label1,ignore_index=True)
+#dataset1[DP2.select_features].to_csv(path+'preprocessed_train'+str(m)+'_'+str(index)+'.csv',sep='\t',index=False)
+#dataset1[['orderlabel']].to_csv(path+'preprocessed_train_Y'+str(m)+'_'+str(index)+'.csv',sep='\t',index=False)
 
 #trainY = dataset1['orderlabel']
 #dataset1 = dataset1[select_features]

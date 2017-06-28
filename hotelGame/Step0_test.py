@@ -1,9 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat May 27 00:27:47 2017
+Created on Sat Jun 17 22:27:21 2017
 
 @author: Chenanyun
 """
+
+
+import pandas as pd
+
+path = 'F:\\MyPython\\resource\\ctrip\\'
+#path = 'E:\\cay\\resource\\'
+
+path_train = path+'competition_train.txt'
+#path_train = path+'competition_test.txt'
+
 basicCol=[
         'orderid'
         ,'uid'
@@ -166,62 +176,75 @@ basicCol=[
 
 usecols = [
         'orderid'
-        ,'hotelid'
-        ,'basicroomid'
         ,'roomid'
-        ,'basic_week_ordernum_ratio'
-        ,'basic_recent3_ordernum_ratio'
-        ,'basic_comment_ratio'
-        ,'basic_30days_ordnumratio'
-        ,'basic_30days_realratio'
-        ,'room_30days_ordnumratio'
-        ,'room_30days_realratio'
+        ,'orderlabel'
+        ,'rank'
         ]
-import pandas as pd
-import numpy as np
 
-#path = 'F:\\MyPython\\resource\\ctrip\\'
-path = 'E:\\cay\\resource\\'
-
-path_train = path+'competition_train.txt'
-path_test = path+'competition_test.txt'
-
-dataset = pd.DataFrame()
-file_handler1 = pd.read_table(path_train,
+file_handler = pd.read_table(path_train,
                              sep='\t',
                              chunksize=100000,
                              usecols=usecols,
                              low_memory=False)
-j = 1
-for data_i in file_handler1:
-    dataset = pd.concat((dataset,data_i),axis=0,ignore_index=True)
+
+dataset1 = pd.DataFrame()
+total_train,j = 0,1
+for data_i in file_handler:
+    dataset1 = pd.concat((dataset1,data_i),axis=0,ignore_index=True)
+    total_train += data_i.shape[0]
     print j
     j+=1
+    if total_train >= 2000000:
+        break 
 del data_i
 
-file_handler2 = pd.read_table(path_test,
-                             sep='\t',
-                             chunksize=100000,
-                             usecols=usecols,
-                             low_memory=False)
-j = 1
-for data_i in file_handler2:
-    dataset = pd.concat((dataset,data_i),axis=0,ignore_index=True)
-    print j
-    j+=1
-del data_i
 
-dataset['orderid'] = dataset['orderid'].apply(lambda x: x[6:])
-dataset['hotelid'] = dataset['hotelid'].apply(lambda x: x[6:])
-dataset['basicroomid'] = dataset['basicroomid'].apply(lambda x: x[6:])
-dataset['roomid'] = dataset['roomid'].apply(lambda x: x[5:])
+#df1 = dataset1[['orderid','price_deduct']].groupby('orderid').min().reset_index()
+#df1.columns = ['orderid','ordermin']
+#df1 = pd.merge(dataset1[['orderid','price_deduct','orderlabel']],df1,on=['orderid'],how='left',suffixes=['','_y'])
+#dataset1['price_diff_order'] = df1['price_deduct']-df1['ordermin']
 
-dataset.sort_values(['orderid','hotelid','basicroomid'],inplace=True)
-df = dataset.groupby(['orderid','hotelid','basicroomid'],as_index=False).median()
-#dataset = pd.merge(dataset,df,on=['orderid','hotelid','basicroomid'],how='left',suffixes=['','_y'])
 
-dataset.drop(['roomid','room_30days_ordnumratio','room_30days_realratio'],axis=1,inplace=True)
+import matplotlib.pylab as plt
+import seaborn as sns
 
-df.to_csv(path+'room.csv',sep='\t',index=False)
+plt.hist(dataset1[dataset1.orderlabel== 1].price_diff_order.values, bins=20, alpha=0.5)
+plt.hist(dataset1[dataset1.orderlabel== 0].price_diff_order.values, bins=20, alpha=0.5)
+plt.xlabel('price_deduct')
+plt.ylabel('num')
+
+def printScore(compare,result,predict):
+    combine = pd.concat([compare,pd.DataFrame(predict)],axis=1)
+    maxr = combine.loc[combine.groupby('orderid',as_index=False).apply(lambda x:x[0].argmax())]
+    maxr = pd.merge(maxr,result,on=['orderid'])
+    print len(maxr[maxr['roomid_x']==maxr['roomid_y']])/float(len(maxr))
+import xgboost as xgb
+
+
+drop_list = ['orderid','roomid','orderlabel','price_deduct']
+
+train = dataset1.loc[:1000000]
+y1 = train['orderlabel'].values.ravel()
+train = train.drop(drop_list,axis=1).values
+xg_train = xgb.DMatrix(train, label=y1)
+                     
+test = dataset1.loc[1000001:].reset_index(drop=True)
+y2 = test['orderlabel'].values.ravel()
+compare_test = test[['orderid','roomid']]
+result_test = test.loc[test['orderlabel']==1,['orderid','roomid']]
+test = test.drop(drop_list,axis=1).values
+xg_test = xgb.DMatrix(test, label=y2)
+
+
+watchlist=[(xg_train,'train')]
+num_round = 50
+param = {'bst:max_depth':4, 'bst:eta':0.3, 'silent':1, 'objective':'binary:logistic' }
+plst = param.items()
+
+bst = xgb.train( plst, xg_train, num_round, evals=watchlist)
+pre = bst.predict(xg_test)
+
+printScore(compare_test,result_test,pre)
+
 
 

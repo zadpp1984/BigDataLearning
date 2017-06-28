@@ -18,11 +18,11 @@ def printScore(compare,result,predict):
 def read_data(file):
     
     with open(file, 'r') as f:
-        columns = f.readline().strip('\n').split(',') 
+        columns = f.readline().strip('\n').split('\t') 
     
     dataset = pd.DataFrame()
     file_handler = pd.read_table(file,
-                                 sep=',',
+                                 sep='\t',
                                  chunksize=100000,
                                  usecols=columns,
                                  low_memory=False)
@@ -36,15 +36,18 @@ def read_data(file):
     del data_i
     return dataset
 
-#path = 'F:\\MyPython\\resource\\ctrip\\'
+#path = 'F:\\MyPython\\resource\\ctrip\\sorted\\'
 path = 'E:\\cay\\resource\\temp\\'
-dataset2 = read_data(path+'preprocessed_test.csv').values
-xg_test = xgb.DMatrix(dataset2)
+
+drop_list=[
+        ]
+
+xg_test = xgb.DMatrix(read_data(path+'preprocessed_test.csv').drop(drop_list,axis=1).values)
+
+#xg_test = xgb.DMatrix(read_data(path+'preprocessed_test.csv').values)
 
 bst = xgb.Booster() #init model
-#bst.load_model("xgboost2.model")
-#bst.load_model("xgboost3.model")
-bst.load_model("xgboost8_2.model")
+bst.load_model("xgboost10_1.model")
 predict_test = bst.predict(xg_test) 
 
 

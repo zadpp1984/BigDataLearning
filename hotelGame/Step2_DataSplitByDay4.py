@@ -6,26 +6,26 @@ Created on Sat Jun 10 11:20:35 2017
 """
 import numpy as np
 
-#path = 'F:\\MyPython\\resource\\ctrip\\'
+#path = 'F:\\MyPython\\resource\\ctrip\\sorted\\'
 path = 'E:\\cay\\resource\\temp\\'
 
 #path_train = path+'competition_train.txt'
-#path_train = path+'train_1_sorted.csv'
-path_train = path+'train_3_sorted.csv'
+path_train = path+'train_1_sorted.csv'
+#path_train = path+'train_3_sorted.csv'
 
 path_train_list = [
 #        path+'train_1_sorted.csv'
         path+'train_2_sorted.csv'
-#       ,path+'train_3_sorted.csv'
-#       ,path+'train_4_sorted.csv'
+       ,path+'train_3_sorted.csv'
+       ,path+'train_4_sorted.csv'
        ,path+'train_5_sorted.csv'
        ,path+'train_6_sorted.csv'
-       ,path+'train_7_sorted.csv'
+#       ,path+'train_7_sorted.csv'
         ]
 
 
 zeronum = 10
-index =4
+index =1
 path_out = path+'train_total'+str(zeronum)+'_'+str(index)+'.csv';
 #path_train = path+'competition_test.txt'
 #path_out = path+'temp\\test_';
